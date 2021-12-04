@@ -30,7 +30,7 @@
                   <Insets top="3.0" />
                </HBox.margin>
             </Text>
-            <Label fx:id="lblTimerQ4" text="--:--" textFill="WHITE">
+            <Label fx:id="lblTimerQ4" text="10" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>

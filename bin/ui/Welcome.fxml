@@ -15,7 +15,7 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="291.0" layoutY="266.0" prefHeight="35.0" prefWidth="240.0" promptText="Please, enter your name">
+      <TextField fx:id="txtEnterPlayer" layoutX="291.0" layoutY="266.0" prefHeight="35.0" prefWidth="240.0" promptText="Please, enter your name">
          <font>
             <Font size="18.0" />
          </font>
@@ -40,12 +40,12 @@
             <Image url="@../../../../Pictures/AppsPictures/2117721.png" />
          </image>
       </ImageView>
-      <Button layoutX="481.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #FFC47C;" text="Developer Info">
+      <Button layoutX="481.0" layoutY="14.0" mnemonicParsing="false" onAction="#developerInfo" style="-fx-background-color: #FFC47C;" text="Developer Info">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="352.0" layoutY="327.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FF9696;" text="Enter">
+      <Button layoutX="352.0" layoutY="327.0" mnemonicParsing="false" onAction="#play" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FF9696;" text="Enter">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>

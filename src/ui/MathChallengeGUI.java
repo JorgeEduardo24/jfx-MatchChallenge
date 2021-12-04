@@ -1,12 +1,42 @@
 package ui;
 
+import java.io.IOException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import model.Player;
 
 public class MathChallengeGUI {
+	
+	private Player player;
+	private Integer startTimeQ1 = 10;
+	private Integer secondsQ1 = startTimeQ1;
+	
+	private Integer startTimeQ2 = 10;
+	private Integer secondsQ2 = startTimeQ2;
+	
+	private Integer startTimeQ3 = 10;
+	private Integer secondsQ3 = startTimeQ3;
+	
+	private Integer startTimeQ4 = 10;
+	private Integer secondsQ4 = startTimeQ4;
+	
+	public MathChallengeGUI() {
+		
+	}
+	
 	private Stage mainStage;
 
 	public Stage getMainStage() {
@@ -42,6 +72,7 @@ public class MathChallengeGUI {
     @FXML
     private Label lblScoreQ2;
     
+    
     //........... Question 3 .........
     
     @FXML
@@ -49,7 +80,8 @@ public class MathChallengeGUI {
 
     @FXML
     private Label lblScoreQ3;
-
+    
+    
     
     //.......... Question 4 ..........
     
@@ -59,106 +91,317 @@ public class MathChallengeGUI {
     @FXML
     private Label lblScoreQ4;
     
+   
+    
 	//***************************** METHODS ***********************
 	
 	// ............. WELCOME ...............
 
     @FXML
     public void developerInfo(ActionEvent event) {
-
+    	String message = "Math Challenge was developed by:"
+    			+ "\nGloria Vanesa Vicuña"
+    			+ "\nJorge Eduardo Jojoa";
+    	informationAlert(message);
+    	
     }
 
     @FXML
-    public void play(ActionEvent event) {
+    public void play(ActionEvent event) throws IOException {
+    	if(!txtEnterPlayer.getText().equals("")) {
+    		player = new Player(txtEnterPlayer.getText());
+    		
+        	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question1.fxml"));
+    		fxmlLoader.setController(this);
+    		Parent root = fxmlLoader.load();
+    		Scene scene = new Scene(root);
 
+    		mainStage.setScene(scene);
+    		mainStage.show();
+    		doTimeQ1(lblTimerQ1);
+    	}else {
+    		String message = "Enter a player to start the game";
+    		errorAlert(message);
+    	}
     }
     
     //............ Question 1: Multiplicación ..........
+
     
     @FXML
-    public void bttnAnswer74(ActionEvent event) {
+    void answer74(ActionEvent event) throws IOException {
 
+    	errorAlert("Wrong answer");
+    	
+    	
+    	showSecondQuestion();
+    	
     }
 
     @FXML
-    public void bttnAnswer84(ActionEvent event) {
-
+    void answer84(ActionEvent event) throws IOException {
+    	informationAlert("Congratulations");
+    	
+    	showSecondQuestion();
+    	
     }
 
     @FXML
-    public void bttnAnswer86(ActionEvent event) {
-
+    void answer86(ActionEvent event) throws IOException {
+    	errorAlert("Wrong answer");
+    	
+    	showSecondQuestion();
+    	
     }
 
     @FXML
-    public void bttnAnswer92(ActionEvent event) {
-
+    void answer92(ActionEvent event) throws IOException {
+    	errorAlert("Wrong answer");
+    	
+    	showSecondQuestion();
+    	
     }
     
+    
+    private void doTimeQ1(Label label) {
+    	Timeline time = new Timeline();
+    	time.setCycleCount(Timeline.INDEFINITE);
+    	
+    	if(time!=null) {
+    		time.stop();
+    	}
+    	
+    	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+    		
+    		@Override
+    		public void handle(ActionEvent event){
+    			secondsQ1--;
+    			label.setText(secondsQ1.toString());
+    			if(secondsQ1<=0) {
+    				time.stop();
+    				try {
+						showSecondQuestion();
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    			}
+    		}
+    	});
+    	time.getKeyFrames().add(frame);
+    	time.playFromStart(); 
+    }
+    
+    public void showSecondQuestion() throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question2.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+		doTimeQ2(lblTimerQ2);
+    }
+    
+    private void doTimeQ2(Label label) {
+    	Timeline time = new Timeline();
+    	time.setCycleCount(Timeline.INDEFINITE);
+    	
+    	if(time!=null) {
+    		time.stop();
+    	}
+    	
+    	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+    		
+    		@Override
+    		public void handle(ActionEvent event){
+    			secondsQ2--;
+    			label.setText(secondsQ2.toString());
+    			if(secondsQ2<=0) {
+    				time.stop();
+    				try {
+						showThirdQuestion();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    			}
+    		}
+    	});
+    	time.getKeyFrames().add(frame);
+    	time.playFromStart(); 
+    }
     //............ Question 2: Suma .........
     
     @FXML
-    public void bttnAnswer42(ActionEvent event) {
-
+    void bttnAnswer42(ActionEvent event) throws IOException {
+    	
+    	
+    	showThirdQuestion();
+    	
     }
 
     @FXML
-    public void bttnAnswer45(ActionEvent event) {
-
+    void bttnAnswer45(ActionEvent event) throws IOException {
+    	
+    	
+    	showThirdQuestion();
     }
 
     @FXML
-    public void bttnAnswer47(ActionEvent event) {
-
+    void bttnAnswer47(ActionEvent event) throws IOException {
+    	
+    	
+    	showThirdQuestion();
     }
 
     @FXML
-    public void bttnAnswer57(ActionEvent event) {
+    void bttnAnswer57(ActionEvent event) throws IOException {
+    	
+    	
+    	showThirdQuestion();
+    }
+    
+    public void showThirdQuestion() throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question3.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
 
+		mainStage.setScene(scene);
+		mainStage.show();
+		doTimeQ3(lblTimerQ3);
+    }
+    
+    private void doTimeQ3(Label label) {
+    	Timeline time = new Timeline();
+    	time.setCycleCount(Timeline.INDEFINITE);
+    	
+    	if(time!=null) {
+    		time.stop();
+    	}
+    	
+    	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+    		
+    		@Override
+    		public void handle(ActionEvent event){
+    			secondsQ3--;
+    			label.setText(secondsQ3.toString());
+    			if(secondsQ3<=0) {
+    				time.stop();
+    				try {
+						showFourthQuestion();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    			}
+    		}
+    	});
+    	time.getKeyFrames().add(frame);
+    	time.playFromStart(); 
+    }
+    
+    public void showFourthQuestion() throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question4.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+		doTimeQ4(lblTimerQ4);
     }
     
     //.............. Question 3: Resta .........
     
     @FXML
-    public void bttnAnswer58(ActionEvent event) {
+    void bttnAnswer58(ActionEvent event) throws IOException {
+    	showFourthQuestion();
+    	
+    	
+    }
+
+    @FXML
+    void bttnAnswer68(ActionEvent event) throws IOException {
+    	showFourthQuestion();
+    	
+    }
+
+    @FXML
+    void bttnAnswer78(ActionEvent event) throws IOException {
+    	showFourthQuestion();
 
     }
 
     @FXML
-    public void bttnAnswer68(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void bttnAnswer78(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void bttnAnswer88(ActionEvent event) {
-
+    void bttnAnswer88(ActionEvent event) throws IOException {
+    	showFourthQuestion();
     }
     
+    private void doTimeQ4(Label label) {
+    	Timeline time = new Timeline();
+    	time.setCycleCount(Timeline.INDEFINITE);
+    	
+    	if(time!=null) {
+    		time.stop();
+    	}
+    	
+    	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+    		
+    		@Override
+    		public void handle(ActionEvent event){
+    			secondsQ4--;
+    			label.setText(secondsQ4.toString());
+    			if(secondsQ4<=0) {
+    				time.stop();
+    				/*try {
+						showFourthQuestion();
+						doTimeQ4(lblTimerQ3);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}*/
+    			}
+    		}
+    	});
+    	time.getKeyFrames().add(frame);
+    	time.playFromStart(); 
+    }
+
     //............. Question 4: Division .........
     
     @FXML
-    public void bttnAnswer25(ActionEvent event) {
+    void bttnAnswer25(ActionEvent event) {
 
     }
 
     @FXML
-    public void bttnAnswer30(ActionEvent event) {
+    void bttnAnswer30(ActionEvent event) {
 
     }
 
     @FXML
-    public void bttnAnswer35(ActionEvent event) {
+    void bttnAnswer35(ActionEvent event) {
 
     }
 
     @FXML
-    public void bttnAnswer40(ActionEvent event) {
+    void bttnAnswer40(ActionEvent event) {
 
     }
+
     
+    public void informationAlert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Math Challenge");
+		alert.setHeaderText("Information");
+		alert.setContentText(message);
+		alert.show();
+	}
+    
+    public void errorAlert(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Math Challenge");
+		alert.setHeaderText("Error");
+		alert.setContentText(message);
+		alert.show();
+	}
 }

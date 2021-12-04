@@ -30,7 +30,7 @@
                   <Insets top="3.0" />
                </HBox.margin>
             </Text>
-            <Label text="--:--" textFill="WHITE">
+            <Label fx:id="lblTimerQ3" text="10" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
@@ -60,22 +60,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #FFFF00;" text="78">
+            <Button mnemonicParsing="false" onAction="#bttnAnswer78" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #FFFF00;" text="78">
                <font>
                   <Font name="System Bold Italic" size="36.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #FF9300;" text="58" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#bttnAnswer58" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #FF9300;" text="58" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold Italic" size="36.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #0070FF;" text="88" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#bttnAnswer88" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #0070FF;" text="88" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold Italic" size="36.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #00BF0E;" text="68" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#bttnAnswer68" prefHeight="87.0" prefWidth="166.0" style="-fx-background-color: #00BF0E;" text="68" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold Italic" size="36.0" />
                </font>
@@ -92,7 +92,7 @@
                   <Insets top="3.0" />
                </HBox.margin>
             </Text>
-            <Label text="----" textFill="WHITE">
+            <Label fx:id="lblScoreQ3" text="----" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="26.0" />
                </font>
