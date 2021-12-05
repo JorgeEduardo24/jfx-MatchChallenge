@@ -20,8 +20,7 @@ public class MathChallenge {
 		this.root = root;
 	}
 
-	public void addScore(String name) {
-		Player newPlayer = new Player(name);
+	public void addScore(Player newPlayer) {
 		if(root==null) {
 			root = newPlayer;
 		}else {

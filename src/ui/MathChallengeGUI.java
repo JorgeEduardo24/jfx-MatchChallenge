@@ -16,25 +16,28 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.MathChallenge;
 import model.Player;
 
 public class MathChallengeGUI {
 	
 	private Player player;
-	private Integer startTimeQ1 = 10;
+	private MathChallenge mathChallenge;
+	Timeline time;
+	private final Integer startTimeQ1 = 10;
 	private Integer secondsQ1 = startTimeQ1;
 	
-	private Integer startTimeQ2 = 10;
+	private final Integer startTimeQ2 = 10;
 	private Integer secondsQ2 = startTimeQ2;
 	
-	private Integer startTimeQ3 = 10;
+	private final Integer startTimeQ3 = 10;
 	private Integer secondsQ3 = startTimeQ3;
 	
-	private Integer startTimeQ4 = 10;
+	private final Integer startTimeQ4 = 10;
 	private Integer secondsQ4 = startTimeQ4;
 	
 	public MathChallengeGUI() {
-		
+		mathChallenge = new MathChallenge();
 	}
 	
 	private Stage mainStage;
@@ -145,7 +148,7 @@ public class MathChallengeGUI {
     }
 
     @FXML
-    public void play(ActionEvent event) throws IOException {
+    public void play(ActionEvent event) throws IOException {    	
     	if(!txtEnterPlayer.getText().equals("")) {
     		player = new Player(txtEnterPlayer.getText());
     		
@@ -170,7 +173,7 @@ public class MathChallengeGUI {
     public void answer74(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showSecondQuestion();
     	
     }
@@ -180,7 +183,7 @@ public class MathChallengeGUI {
     	
 		int score = player.getScore() + 10;
 		player.setScore(score);
-
+		time.stop();
 		showSecondQuestion();
     	
     }
@@ -189,7 +192,7 @@ public class MathChallengeGUI {
     public void answer86(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-
+    	time.stop();
     	
     	showSecondQuestion();
     	
@@ -199,14 +202,14 @@ public class MathChallengeGUI {
     public void answer92(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showSecondQuestion();
     	
     }
     
     
     private void doTimeQ1(Label label) {
-    	Timeline time = new Timeline();
+    	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
     	
     	if(time!=null) {
@@ -223,7 +226,6 @@ public class MathChallengeGUI {
     				time.stop();
     				try {
 						showSecondQuestion();
-						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -232,6 +234,7 @@ public class MathChallengeGUI {
     	});
     	time.getKeyFrames().add(frame);
     	time.playFromStart(); 
+    	secondsQ1 = startTimeQ1;
     }
     
     public void showSecondQuestion() throws IOException {
@@ -248,7 +251,7 @@ public class MathChallengeGUI {
     }
     
     private void doTimeQ2(Label label) {
-    	Timeline time = new Timeline();
+    	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
     	
     	if(time!=null) {
@@ -273,6 +276,7 @@ public class MathChallengeGUI {
     	});
     	time.getKeyFrames().add(frame);
     	time.playFromStart(); 
+    	secondsQ2 = startTimeQ2;
     }
     //............ Question 2: Suma .........
     
@@ -280,7 +284,7 @@ public class MathChallengeGUI {
     public void bttnAnswer42(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showThirdQuestion();
     	
     }
@@ -289,7 +293,7 @@ public class MathChallengeGUI {
     public void bttnAnswer45(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showThirdQuestion();
     }
 
@@ -297,7 +301,7 @@ public class MathChallengeGUI {
     public void bttnAnswer47(ActionEvent event) throws IOException {
     	int score = player.getScore()+10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showThirdQuestion();
     }
 
@@ -305,7 +309,7 @@ public class MathChallengeGUI {
     public void bttnAnswer57(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showThirdQuestion();
     }
     
@@ -321,14 +325,13 @@ public class MathChallengeGUI {
 		doTimeQ3(lblTimerQ3);
     }
     
+    
     private void doTimeQ3(Label label) {
-    	Timeline time = new Timeline();
+    	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
-    	
     	if(time!=null) {
     		time.stop();
     	}
-    	
     	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
     		
     		@Override
@@ -347,6 +350,7 @@ public class MathChallengeGUI {
     	});
     	time.getKeyFrames().add(frame);
     	time.playFromStart(); 
+    	secondsQ3 = startTimeQ3;
     }
     
     public void showFourthQuestion() throws IOException {
@@ -367,6 +371,7 @@ public class MathChallengeGUI {
     public void bttnAnswer58(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
+    	time.stop();
     	showFourthQuestion();
     	
     }
@@ -375,7 +380,7 @@ public class MathChallengeGUI {
     public void bttnAnswer68(ActionEvent event) throws IOException {
     	int score = player.getScore()+10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showFourthQuestion();
     	
     }
@@ -384,7 +389,7 @@ public class MathChallengeGUI {
     public void bttnAnswer78(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showFourthQuestion();
 
     }
@@ -393,13 +398,13 @@ public class MathChallengeGUI {
     public void bttnAnswer88(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
-    	
+    	time.stop();
     	showFourthQuestion();
     }
     
     
     private void doTimeQ4(Label label) {
-    	Timeline time = new Timeline();
+    	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
     	
     	if(time!=null) {
@@ -423,7 +428,8 @@ public class MathChallengeGUI {
     		}
     	});
     	time.getKeyFrames().add(frame);
-    	time.playFromStart(); 
+    	time.playFromStart();
+    	secondsQ4 = startTimeQ4;
     }
 
     //............. Question 4: Division .........
@@ -432,6 +438,7 @@ public class MathChallengeGUI {
 	public void bttnAnswer25(ActionEvent event) throws IOException {
 		int score = player.getScore() - 10;
 		player.setScore(score);
+		time.stop();
 		showGameScore();
 	}
 
@@ -439,6 +446,7 @@ public class MathChallengeGUI {
     public void bttnAnswer30(ActionEvent event) throws IOException {
     	int score = player.getScore()+10;
     	player.setScore(score);
+    	time.stop();
     	showGameScore();
     }
 
@@ -446,6 +454,7 @@ public class MathChallengeGUI {
     public void bttnAnswer35(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
+    	time.stop();
     	showGameScore();
     }
 
@@ -453,6 +462,7 @@ public class MathChallengeGUI {
     public void bttnAnswer40(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
+    	time.stop();
     	showGameScore();
     }
     
@@ -465,6 +475,7 @@ public class MathChallengeGUI {
 		mainStage.setScene(scene);
 		mainStage.show();
 		lblFinalScore.setText(String.valueOf(player.getScore()));
+		mathChallenge.addScore(player);
     }
     
     
@@ -481,7 +492,68 @@ public class MathChallengeGUI {
 		mainStage.setScene(scene);
 		mainStage.show();
 		
+		//lblPodiumName1.setText(max1(mathChallenge.getRoot()).getName());
+		//lblPodiumName2.setText(max2(mathChallenge.getRoot()).getName());
+		//lblPodiumName3.setText(max3(mathChallenge.getRoot()).getName());
     }
+    
+    
+    
+    public Player max1(Player current) {
+		if(current.getRight()==null) {
+			return current;
+		}else {
+			return max1(current.getRight());
+		}
+	}
+    
+    public Player max2(Player current) {
+    	if( (current.getRight()==null) && (max1(current).getScore() > max2(current).getScore()) ) {
+    		return current;
+    	}else {
+    		return max2(current.getRight());
+    	}
+    }
+    
+    public Player max3(Player current) {
+    	if( (current.getRight()==null) && (max2(current).getScore() > max3(current).getScore()) ) {
+    		return current;
+    	}else {
+    		return max2(current.getRight());
+    	}
+    }
+    
+    /*
+    private Car searchCarRecursive(Car current, double price) {
+		if(current==null) {
+			return null;
+		}else if(current.getPrice() == price) {
+			return current;
+		}else if(price > current.getPrice()) {
+			return searchCarRecursive(current.getRight(), price);
+		}else {
+			return searchCarRecursive(current.getLeft(), price);
+		}
+	}
+    */
+    /*
+    public static void printTreeInOrder() {
+		if(carSeller.getRoot()==null) {
+			System.out.println("The tree is empty");
+		}else {
+			printTreeInOrder(carSeller.getRoot());
+		}
+	}
+
+	private static void printTreeInOrder(Car current) {
+		if (current != null) {
+			printTreeInOrder(current.getRight());
+			System.out.println();
+			System.out.println(current.toString());
+			printTreeInOrder(current.getLeft());
+		}
+	}
+    */
     
     //...................... SCOREBOARD...................
     
