@@ -92,7 +92,7 @@
                   <Insets top="3.0" />
                </HBox.margin>
             </Text>
-            <Label fx:id="lblScoreQ2" text="----" textFill="WHITE">
+            <Label fx:id="lblScoreQ2" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="26.0" />
                </font>

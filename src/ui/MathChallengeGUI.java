@@ -129,34 +129,38 @@ public class MathChallengeGUI {
 
     
     @FXML
-    void answer74(ActionEvent event) throws IOException {
-
-    	errorAlert("Wrong answer");
-    	
-    	
-    	showSecondQuestion();
-    	
-    }
-
-    @FXML
-    void answer84(ActionEvent event) throws IOException {
-    	informationAlert("Congratulations");
+    public void answer74(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	
     	showSecondQuestion();
     	
     }
 
     @FXML
-    void answer86(ActionEvent event) throws IOException {
-    	errorAlert("Wrong answer");
+    public void answer84(ActionEvent event) throws IOException {
+    	
+		int score = player.getScore() + 10;
+		player.setScore(score);
+
+		showSecondQuestion();
+    	
+    }
+
+    @FXML
+    public void answer86(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
+
     	
     	showSecondQuestion();
     	
     }
 
     @FXML
-    void answer92(ActionEvent event) throws IOException {
-    	errorAlert("Wrong answer");
+    public void answer92(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	
     	showSecondQuestion();
     	
@@ -200,6 +204,8 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		
+		lblScoreQ2.setText(String.valueOf(player.getScore()));
 		doTimeQ2(lblTimerQ2);
     }
     
@@ -233,30 +239,34 @@ public class MathChallengeGUI {
     //............ Question 2: Suma .........
     
     @FXML
-    void bttnAnswer42(ActionEvent event) throws IOException {
-    	
+    public void bttnAnswer42(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	
     	showThirdQuestion();
     	
     }
 
     @FXML
-    void bttnAnswer45(ActionEvent event) throws IOException {
-    	
-    	
-    	showThirdQuestion();
-    }
-
-    @FXML
-    void bttnAnswer47(ActionEvent event) throws IOException {
-    	
+    public void bttnAnswer45(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	
     	showThirdQuestion();
     }
 
     @FXML
-    void bttnAnswer57(ActionEvent event) throws IOException {
+    public void bttnAnswer47(ActionEvent event) throws IOException {
+    	int score = player.getScore()+10;
+    	player.setScore(score);
     	
+    	showThirdQuestion();
+    }
+
+    @FXML
+    public void bttnAnswer57(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	
     	showThirdQuestion();
     }
@@ -269,6 +279,7 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		lblScoreQ3.setText(String.valueOf(player.getScore()));
 		doTimeQ3(lblTimerQ3);
     }
     
@@ -308,32 +319,43 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		lblScoreQ4.setText(String.valueOf(player.getScore()));
 		doTimeQ4(lblTimerQ4);
     }
     
     //.............. Question 3: Resta .........
     
     @FXML
-    void bttnAnswer58(ActionEvent event) throws IOException {
-    	showFourthQuestion();
-    	
-    	
-    }
-
-    @FXML
-    void bttnAnswer68(ActionEvent event) throws IOException {
+    public void bttnAnswer58(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     	showFourthQuestion();
     	
     }
 
     @FXML
-    void bttnAnswer78(ActionEvent event) throws IOException {
+    public void bttnAnswer68(ActionEvent event) throws IOException {
+    	int score = player.getScore()+10;
+    	player.setScore(score);
+    	
+    	showFourthQuestion();
+    	
+    }
+
+    @FXML
+    public void bttnAnswer78(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
+    	
     	showFourthQuestion();
 
     }
 
     @FXML
-    void bttnAnswer88(ActionEvent event) throws IOException {
+    public void bttnAnswer88(ActionEvent event) throws IOException {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
+    	
     	showFourthQuestion();
     }
     
@@ -368,24 +390,28 @@ public class MathChallengeGUI {
 
     //............. Question 4: Division .........
     
-    @FXML
-    void bttnAnswer25(ActionEvent event) {
+	@FXML
+	public void bttnAnswer25(ActionEvent event) {
+		int score = player.getScore() - 10;
+		player.setScore(score);
+	}
 
+    @FXML
+    public void bttnAnswer30(ActionEvent event) {
+    	int score = player.getScore()+10;
+    	player.setScore(score);
     }
 
     @FXML
-    void bttnAnswer30(ActionEvent event) {
-
+    public void bttnAnswer35(ActionEvent event) {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     }
 
     @FXML
-    void bttnAnswer35(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bttnAnswer40(ActionEvent event) {
-
+    public void bttnAnswer40(ActionEvent event) {
+    	int score = player.getScore()-10;
+    	player.setScore(score);
     }
 
     
