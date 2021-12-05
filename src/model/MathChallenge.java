@@ -69,6 +69,7 @@ public class MathChallenge {
 	}
 	
 	
+	
 	public void removeScore(int score) {
 		Player playerRemove = searchScore(score);
 		removeScore(playerRemove);

@@ -1,9 +1,13 @@
 package ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.MathChallenge;
@@ -23,7 +28,9 @@ public class MathChallengeGUI {
 	
 	private Player player;
 	private MathChallenge mathChallenge;
-	Timeline time;
+	private Timeline time;
+	private List<Player> players;
+	
 	private final Integer startTimeQ1 = 10;
 	private Integer secondsQ1 = startTimeQ1;
 	
@@ -38,6 +45,7 @@ public class MathChallengeGUI {
 	
 	public MathChallengeGUI() {
 		mathChallenge = new MathChallenge();
+		players = new ArrayList<Player>();
 	}
 	
 	private Stage mainStage;
@@ -126,12 +134,21 @@ public class MathChallengeGUI {
 
     @FXML
     private Label lblPodiumScore3;
+    
+    
+    //................. SEARCH_SCORE................
+    
+    @FXML
+    private Label lblSearchedScore;
 
     @FXML
-    private Label lblPodiumScore4;
-
+    private ComboBox<Player> cmbxPlayers;
+    
+    //................. REMOVE_SCORE ...............
+    
     @FXML
-    private Label lblPodiumScore5;
+    private ComboBox<String> cmbxPlayers2;
+
 
     
 	//***************************** METHODS ***********************
@@ -151,6 +168,7 @@ public class MathChallengeGUI {
     public void play(ActionEvent event) throws IOException {    	
     	if(!txtEnterPlayer.getText().equals("")) {
     		player = new Player(txtEnterPlayer.getText());
+    		players.add(player);
     		
         	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question1.fxml"));
     		fxmlLoader.setController(this);
@@ -492,11 +510,27 @@ public class MathChallengeGUI {
 		mainStage.setScene(scene);
 		mainStage.show();
 		
-		//lblPodiumName1.setText(max1(mathChallenge.getRoot()).getName());
-		//lblPodiumName2.setText(max2(mathChallenge.getRoot()).getName());
-		//lblPodiumName3.setText(max3(mathChallenge.getRoot()).getName());
+		lblPodiumName1.setText(max1(mathChallenge.getRoot()).getName());
+		lblPodiumScore1.setText(String.valueOf(max1(mathChallenge.getRoot()).getScore()));
+		
+		
+		if(mathChallenge.getRoot().getLeft()!=null || mathChallenge.getRoot().getRight()!=null) {
+			lblPodiumName2.setText( max1(mathChallenge.getRoot()).getUp().getName() );
+			lblPodiumScore2.setText( String.valueOf(max1(mathChallenge.getRoot()).getUp().getScore()) );
+		}
+		
+		try {
+			if(max1(mathChallenge.getRoot()).getUp().getLeft()!=null) {
+				lblPodiumName3.setText( max1(mathChallenge.getRoot()).getUp().getLeft().getName() );
+				lblPodiumScore3.setText( String.valueOf(max1(mathChallenge.getRoot()).getUp().getLeft().getScore()) );
+			}else {
+				lblPodiumName3.setText(max1(mathChallenge.getRoot()).getUp().getUp().getName());
+				lblPodiumScore3.setText( String.valueOf(max1(mathChallenge.getRoot()).getUp().getUp().getScore()) );
+			}
+		}catch(NullPointerException ex) {
+		}
+		
     }
-    
     
     
     public Player max1(Player current) {
@@ -507,21 +541,17 @@ public class MathChallengeGUI {
 		}
 	}
     
-    public Player max2(Player current) {
-    	if( (current.getRight()==null) && (max1(current).getScore() > max2(current).getScore()) ) {
-    		return current;
-    	}else {
-    		return max2(current.getRight());
-    	}
-    }
-    
-    public Player max3(Player current) {
-    	if( (current.getRight()==null) && (max2(current).getScore() > max3(current).getScore()) ) {
-    		return current;
-    	}else {
-    		return max2(current.getRight());
-    	}
-    }
+    public Player searchPlayerRecursive(Player current, Player newPlayer) {
+		if(current==null) {
+			return null;
+		}else if(current.getScore() == newPlayer.getScore()) {
+			return newPlayer;
+		}else if(newPlayer.getScore() > current.getScore()) {
+			return searchPlayerRecursive(current.getRight(), newPlayer).getUp();
+		}else {
+			return searchPlayerRecursive(current.getLeft(), newPlayer).getUp();
+		}
+	}
     
     /*
     private Car searchCarRecursive(Car current, double price) {
@@ -564,13 +594,26 @@ public class MathChallengeGUI {
     }
 
     @FXML
-    public void toRemoveScoreWindow(ActionEvent event) {
-    	
+    public void toRemoveScoreWindow(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveScore.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
     }
 
     @FXML
-    public void toSearchScoreWindow(ActionEvent event) {
-    	
+    public void toSearchScoreWindow(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SearchScore.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+		initializeComboBox();
     }
 
     @FXML
@@ -583,7 +626,62 @@ public class MathChallengeGUI {
 		mainStage.setScene(scene);
 		mainStage.show();
     }
+    
+    
+    //................. SEARCH_SCORE................
+    
 
+    @FXML
+    public void returnToScoreboardWindow(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Scoreboard.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+    }
+
+    @FXML
+    public void searchScore(ActionEvent event) {
+    	String message = "";
+		if (cmbxPlayers.getSelectionModel().getSelectedItem().equals("") == false) {
+			Player playerx = cmbxPlayers.getSelectionModel().getSelectedItem();
+			int scorex = mathChallenge.searchScore(playerx.getScore()).getScore();
+			lblSearchedScore.setText( String.valueOf(scorex) );
+		} else {
+			message = "Please, select a person to see the score.";
+			errorAlert(message);
+		}
+
+    }
+    
+    public void initializeComboBox() {
+		ObservableList<Player> observableList = FXCollections.observableArrayList(players);
+		cmbxPlayers.setItems(observableList);
+	}
+    
+    //................. REMOVE_SCORE ...............
+    
+    
+    @FXML
+    public void removeScore(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    public void returnToScoreboardWindow2(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Scoreboard.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+    }
+    
+    
+    
     
     public void informationAlert(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
