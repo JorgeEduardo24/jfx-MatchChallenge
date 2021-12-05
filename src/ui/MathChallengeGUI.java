@@ -92,6 +92,44 @@ public class MathChallengeGUI {
     private Label lblScoreQ4;
     
    
+    //.......... GameScore ...........
+    
+    @FXML
+    private Label lblFinalScore;
+    
+    
+    //............. SCOREBOARD............
+    
+    @FXML
+    private Label lblPodiumName1;
+
+    @FXML
+    private Label lblPodiumName2;
+
+    @FXML
+    private Label lblPodiumName3;
+
+    @FXML
+    private Label lblPodiumName4;
+
+    @FXML
+    private Label lblPodiumName5;
+
+    @FXML
+    private Label lblPodiumScore1;
+
+    @FXML
+    private Label lblPodiumScore2;
+
+    @FXML
+    private Label lblPodiumScore3;
+
+    @FXML
+    private Label lblPodiumScore4;
+
+    @FXML
+    private Label lblPodiumScore5;
+
     
 	//***************************** METHODS ***********************
 	
@@ -359,6 +397,7 @@ public class MathChallengeGUI {
     	showFourthQuestion();
     }
     
+    
     private void doTimeQ4(Label label) {
     	Timeline time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
@@ -375,12 +414,11 @@ public class MathChallengeGUI {
     			label.setText(secondsQ4.toString());
     			if(secondsQ4<=0) {
     				time.stop();
-    				/*try {
-						showFourthQuestion();
-						doTimeQ4(lblTimerQ3);
+    				try {
+						showGameScore();
 					} catch (IOException e) {
 						e.printStackTrace();
-					}*/
+					}
     			}
     		}
     	});
@@ -391,27 +429,87 @@ public class MathChallengeGUI {
     //............. Question 4: Division .........
     
 	@FXML
-	public void bttnAnswer25(ActionEvent event) {
+	public void bttnAnswer25(ActionEvent event) throws IOException {
 		int score = player.getScore() - 10;
 		player.setScore(score);
+		showGameScore();
 	}
 
     @FXML
-    public void bttnAnswer30(ActionEvent event) {
+    public void bttnAnswer30(ActionEvent event) throws IOException {
     	int score = player.getScore()+10;
     	player.setScore(score);
+    	showGameScore();
     }
 
     @FXML
-    public void bttnAnswer35(ActionEvent event) {
+    public void bttnAnswer35(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
+    	showGameScore();
     }
 
     @FXML
-    public void bttnAnswer40(ActionEvent event) {
+    public void bttnAnswer40(ActionEvent event) throws IOException {
     	int score = player.getScore()-10;
     	player.setScore(score);
+    	showGameScore();
+    }
+    
+    public void showGameScore() throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameScore.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+		lblFinalScore.setText(String.valueOf(player.getScore()));
+    }
+    
+    
+    //...................... GAME_SCORE .......................
+    
+   
+    @FXML
+    public void toScoreboardWindow(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Scoreboard.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
+		
+    }
+    
+    //...................... SCOREBOARD...................
+    
+    
+    @FXML
+    public void exitTheApp(ActionEvent event) {
+    	System.exit(0);
+    }
+
+    @FXML
+    public void toRemoveScoreWindow(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    public void toSearchScoreWindow(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    public void toWelcomeWindow(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Welcome.fxml"));
+		fxmlLoader.setController(this);
+		Parent root = fxmlLoader.load();
+		Scene scene = new Scene(root);
+
+		mainStage.setScene(scene);
+		mainStage.show();
     }
 
     
