@@ -58,9 +58,19 @@ public class MathChallengeGUI {
 		this.mainStage = mainStage;
 	}
 	
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+	
 	
 	//***************************** ATRIBUTES ********************
 	
+	
+
 	//............ WELCOME ..........
 	@FXML
     private TextField txtEnterPlayer;
@@ -147,7 +157,7 @@ public class MathChallengeGUI {
     //................. REMOVE_SCORE ...............
     
     @FXML
-    private ComboBox<String> cmbxPlayers2;
+    private ComboBox<Player> cmbxPlayers2;
 
 
     
@@ -510,7 +520,12 @@ public class MathChallengeGUI {
 		mainStage.setScene(scene);
 		mainStage.show();
 		
-		lblPodiumName1.setText(max1(mathChallenge.getRoot()).getName());
+		setLabelsPodium();
+    }
+    
+    
+    public void setLabelsPodium() {
+    	lblPodiumName1.setText(max1(mathChallenge.getRoot()).getName());
 		lblPodiumScore1.setText(String.valueOf(max1(mathChallenge.getRoot()).getScore()));
 		
 		
@@ -529,16 +544,17 @@ public class MathChallengeGUI {
 			}
 		}catch(NullPointerException ex) {
 		}
-		
     }
     
-    
     public Player max1(Player current) {
-		if(current.getRight()==null) {
+    	if(current==null) {
+    		return null;
+    	}else if(current.getRight()==null) {
 			return current;
 		}else {
 			return max1(current.getRight());
 		}
+		
 	}
     
     public Player searchPlayerRecursive(Player current, Player newPlayer) {
@@ -553,37 +569,7 @@ public class MathChallengeGUI {
 		}
 	}
     
-    /*
-    private Car searchCarRecursive(Car current, double price) {
-		if(current==null) {
-			return null;
-		}else if(current.getPrice() == price) {
-			return current;
-		}else if(price > current.getPrice()) {
-			return searchCarRecursive(current.getRight(), price);
-		}else {
-			return searchCarRecursive(current.getLeft(), price);
-		}
-	}
-    */
-    /*
-    public static void printTreeInOrder() {
-		if(carSeller.getRoot()==null) {
-			System.out.println("The tree is empty");
-		}else {
-			printTreeInOrder(carSeller.getRoot());
-		}
-	}
-
-	private static void printTreeInOrder(Car current) {
-		if (current != null) {
-			printTreeInOrder(current.getRight());
-			System.out.println();
-			System.out.println(current.toString());
-			printTreeInOrder(current.getLeft());
-		}
-	}
-    */
+    
     
     //...................... SCOREBOARD...................
     
@@ -602,6 +588,7 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		initializeComboBox2();
     }
 
     @FXML
@@ -640,6 +627,7 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		setLabelsPodium();
     }
 
     @FXML
@@ -666,7 +654,24 @@ public class MathChallengeGUI {
     
     @FXML
     public void removeScore(ActionEvent event) {
-    	
+    	String message = "";
+		if (cmbxPlayers2.getSelectionModel().getSelectedItem().equals("") == false) {
+			Player playerx = cmbxPlayers2.getSelectionModel().getSelectedItem();
+			int scorex = mathChallenge.searchScore(playerx.getScore()).getScore();
+			mathChallenge.removeScore(scorex);
+			
+			for(int i=0;i<players.size();i++) {
+				if(players.get(i).getName().equals(playerx.getName())) {
+					players.remove(i);
+				}
+			}
+			
+			message = "Score successfully removed.";
+			confirmationAlert(message);
+		} else {
+			message = "Please, select a person to see the score.";
+			errorAlert(message);
+		}
     }
 
     @FXML
@@ -678,10 +683,23 @@ public class MathChallengeGUI {
 
 		mainStage.setScene(scene);
 		mainStage.show();
+		setLabelsPodium();
     }
     
     
+    public void initializeComboBox2() {
+		ObservableList<Player> observableList = FXCollections.observableArrayList(players);
+		cmbxPlayers2.setItems(observableList);
+	}
     
+    
+    public void confirmationAlert(String message) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Math Challenge");
+		alert.setHeaderText("Successful action!");
+		alert.setContentText(message);
+		alert.show();
+	}
     
     public void informationAlert(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
