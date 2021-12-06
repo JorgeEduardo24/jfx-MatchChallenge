@@ -353,7 +353,7 @@ public class MathChallengeGUI {
 		recBar2.setWidth(bar.getProgressLevel());
 	}
     
-    //............ Question 2: Suma .........
+    //................. Question 2 .....................
     
     @FXML
     public void bttnAnswer42(ActionEvent event) throws IOException {
@@ -454,7 +454,7 @@ public class MathChallengeGUI {
 		doTimeQ4(lblTimerQ4);
     }
     
-    //.............. Question 3: Resta .........
+    //.................... Question 3 .....................
     
     @FXML
     public void bttnAnswer58(ActionEvent event) throws IOException {
@@ -687,7 +687,7 @@ public class MathChallengeGUI {
     }
     
     
-    //................. SEARCH_SCORE................
+    //...................... SEARCH_SCORE.....................
     
 
     @FXML
@@ -721,8 +721,8 @@ public class MathChallengeGUI {
 		cmbxPlayers.setItems(observableList);
 	}
     
-    //................. REMOVE_SCORE ...............
     
+    //.................... REMOVE_SCORE .................
     
     @FXML
     public void removeScore(ActionEvent event) {
@@ -748,14 +748,18 @@ public class MathChallengeGUI {
 
     @FXML
     public void returnToScoreboardWindow2(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Scoreboard.fxml"));
-		fxmlLoader.setController(this);
-		Parent root = fxmlLoader.load();
-		Scene scene = new Scene(root);
+    	try {
+    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Scoreboard.fxml"));
+    		fxmlLoader.setController(this);
+    		Parent root = fxmlLoader.load();
+    		Scene scene = new Scene(root);
 
-		mainStage.setScene(scene);
-		mainStage.show();
-		setLabelsPodium();
+    		mainStage.setScene(scene);
+    		mainStage.show();
+    		setLabelsPodium();
+    	}catch(NullPointerException ex) {
+    	}
+    	
     }
     
     

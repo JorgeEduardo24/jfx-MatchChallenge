@@ -1,11 +1,7 @@
 package model;
 
 public class MathChallenge {
-	
-	private String FILE_IMPORT_TXT_PATH = "data/PlayersData.txt";
-	private String FILE_EXPORT_TXT_PATH = "data/ExportedPlayersData.txt";
-	private String FILE_SAVE_PATH = "data2/Players.apo2";
-	
+
 	private Player root;
 	
 	public MathChallenge() {
@@ -77,7 +73,7 @@ public class MathChallenge {
 	
 	private void removeScore(Player playerRemove) {
 		if(playerRemove != null) { 
-			//CASE 1: EL NODO A ELIMINAR ES UNA HOJA
+			//CASE 1: The node is a leaf
 			if(playerRemove.getLeft() == null && playerRemove.getRight() == null) { 
 				if(playerRemove == root) { 
 					root = null;
@@ -87,7 +83,7 @@ public class MathChallenge {
 					playerRemove.getUp().setRight(null);
 				}
 				
-				//CASE 2: EL NODO A ELIMINAR TIENE 1 HIJO
+				//CASE 2: The node has one children 
 			}else if(playerRemove.getLeft()==null || playerRemove.getRight()==null) {
 				Player child;
 				if(playerRemove.getLeft()!=null) { 
@@ -105,7 +101,7 @@ public class MathChallenge {
 				}
 			}
 			
-			//CASE 3: EL NODO A ELIMINAR TIENE 2 HIJOS:
+			//CASE 3: The node has two children
 			else {
 				Player succesor = min(playerRemove.getRight());
 				playerRemove.setName(succesor.getName());
@@ -122,4 +118,5 @@ public class MathChallenge {
 			return min(current.getLeft());
 		}
 	}
+	
 }
