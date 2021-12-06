@@ -17,18 +17,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Bar;
 import model.MathChallenge;
 import model.Player;
+import threads.BarThread;
+import threads.BarThread2;
+import threads.BarThread3;
+import threads.BarThread4;
 
 public class MathChallengeGUI {
 	
 	private Player player;
 	private MathChallenge mathChallenge;
 	private Timeline time;
+	private Bar bar;
 	private List<Player> players;
 	
 	private final Integer startTimeQ1 = 10;
@@ -44,7 +51,7 @@ public class MathChallengeGUI {
 	private Integer secondsQ4 = startTimeQ4;
 	
 	public MathChallengeGUI() {
-		mathChallenge = new MathChallenge();
+		mathChallenge = new MathChallenge(); 
 		players = new ArrayList<Player>();
 	}
 	
@@ -57,6 +64,7 @@ public class MathChallengeGUI {
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
+	
 	
 	public List<Player> getPlayers() {
 		return players;
@@ -84,6 +92,9 @@ public class MathChallengeGUI {
     @FXML
     private Label lblScoreQ1;
     
+    @FXML
+    private Rectangle recBar;
+    
     
     //............ Question 2 ........
     
@@ -92,6 +103,9 @@ public class MathChallengeGUI {
 
     @FXML
     private Label lblScoreQ2;
+    
+    @FXML
+    private Rectangle recBar2;
     
     
     //........... Question 3 .........
@@ -102,6 +116,8 @@ public class MathChallengeGUI {
     @FXML
     private Label lblScoreQ3;
     
+    @FXML
+    private Rectangle recBar3;
     
     
     //.......... Question 4 ..........
@@ -112,6 +128,9 @@ public class MathChallengeGUI {
     @FXML
     private Label lblScoreQ4;
     
+    @FXML
+    private Rectangle recBar4;
+
    
     //.......... GameScore ...........
     
@@ -239,7 +258,7 @@ public class MathChallengeGUI {
     private void doTimeQ1(Label label) {
     	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
-    	
+    	startProgressBarQ1(secondsQ1+14);
     	if(time!=null) {
     		time.stop();
     	}
@@ -265,6 +284,19 @@ public class MathChallengeGUI {
     	secondsQ1 = startTimeQ1;
     }
     
+    
+	public void startProgressBarQ1(int seconds) {
+		bar = new Bar();  
+		bar.setActive(true);
+		new BarThread(bar, this, seconds).start();
+	}
+
+	
+	public void updateBarQ1() {
+		recBar.setWidth(bar.getProgressLevel());
+	}
+    
+    
     public void showSecondQuestion() throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question2.fxml"));
 		fxmlLoader.setController(this);
@@ -278,9 +310,12 @@ public class MathChallengeGUI {
 		doTimeQ2(lblTimerQ2);
     }
     
+    
+    
     private void doTimeQ2(Label label) {
     	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
+    	startProgressBarQ2(secondsQ2+14);
     	
     	if(time!=null) {
     		time.stop();
@@ -306,6 +341,18 @@ public class MathChallengeGUI {
     	time.playFromStart(); 
     	secondsQ2 = startTimeQ2;
     }
+    
+    public void startProgressBarQ2(int seconds) {
+		bar = new Bar();  
+		bar.setActive(true);
+		new BarThread2(bar, this, seconds).start();
+	}
+
+	
+	public void updateBarQ2() {
+		recBar2.setWidth(bar.getProgressLevel());
+	}
+    
     //............ Question 2: Suma .........
     
     @FXML
@@ -355,8 +402,11 @@ public class MathChallengeGUI {
     
     
     private void doTimeQ3(Label label) {
+		bar = new Bar();  
     	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
+    	startProgressBarQ3(secondsQ3+14);
+    	
     	if(time!=null) {
     		time.stop();
     	}
@@ -379,7 +429,18 @@ public class MathChallengeGUI {
     	time.getKeyFrames().add(frame);
     	time.playFromStart(); 
     	secondsQ3 = startTimeQ3;
+    	
     }
+    
+    public void startProgressBarQ3(int seconds) {
+		bar.setActive(true);
+		new BarThread3(bar, this, seconds).start();
+	}
+	
+	public void updateBarQ3() {
+		recBar3.setWidth(bar.getProgressLevel());
+	}
+	
     
     public void showFourthQuestion() throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Question4.fxml"));
@@ -434,6 +495,7 @@ public class MathChallengeGUI {
     private void doTimeQ4(Label label) {
     	time = new Timeline();
     	time.setCycleCount(Timeline.INDEFINITE);
+    	startProgressBarQ4(secondsQ4+14);
     	
     	if(time!=null) {
     		time.stop();
@@ -459,7 +521,17 @@ public class MathChallengeGUI {
     	time.playFromStart();
     	secondsQ4 = startTimeQ4;
     }
-
+    
+    public void startProgressBarQ4(int seconds) {
+		bar = new Bar();  
+		bar.setActive(true);
+		new BarThread4(bar, this, seconds).start();
+	}
+	
+	public void updateBarQ4() {
+		recBar4.setWidth(bar.getProgressLevel());
+	}
+    
     //............. Question 4: Division .........
     
 	@FXML
